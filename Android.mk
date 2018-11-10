@@ -21,6 +21,9 @@ include $(CLEAR_VARS)
 LOCAL_JAVA_LIBRARIES := \
     android-support-annotations
 
+LOCAL_STATIC_ANDROID_LIBRARIES := \
+    android-support-v4
+
 LOCAL_STATIC_JAVA_LIBRARIES := \
     prebuilt-gson \
 	prebuilt-jsoup \
