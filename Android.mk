@@ -39,6 +39,7 @@ LOCAL_CERTIFICATE := platform
 LOCAL_PRIVILEGED_MODULE := true
 LOCAL_MODULE_TAGS := optional
 
+LOCAL_AAPT_FLAGS := --auto-add-overlay
 LOCAL_MANIFEST_FILE := AndroidManifest.xml
 include $(BUILD_PACKAGE)
 
