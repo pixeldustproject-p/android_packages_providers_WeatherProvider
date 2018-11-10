@@ -32,7 +32,7 @@ public class Utilities {
     }
 
     public static boolean isLegacyMode() {
-        return getSystemProperty("debug.weather_provider_legacy", true);
+        return getSystemProperty("debug.weather_provider_legacy", "true");
     }
 	
 	public static String getSystemProperty(String key, String defaultValue) {
