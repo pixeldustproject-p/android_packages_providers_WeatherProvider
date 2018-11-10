@@ -27,7 +27,8 @@ LOCAL_STATIC_ANDROID_LIBRARIES := \
 LOCAL_STATIC_JAVA_LIBRARIES := \
     prebuilt-gson \
 	prebuilt-jsoup \
-	prebuilt-okhttp
+	prebuilt-okhttp \
+	prebuilt-okio
 
 LOCAL_STATIC_JAVA_AAR_LIBRARIES := \
     prebuilt-play-services-base \
@@ -114,6 +115,14 @@ include $(CLEAR_VARS)
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 LOCAL_MODULE := prebuilt-okhttp
 LOCAL_SRC_FILES := libs/okhttp-3.11.0.jar
+LOCAL_UNINSTALLABLE_MODULE := true
+LOCAL_SDK_VERSION := current
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE_CLASS := JAVA_LIBRARIES
+LOCAL_MODULE := prebuilt-okio
+LOCAL_SRC_FILES := libs/okio-1.14.0.jar
 LOCAL_UNINSTALLABLE_MODULE := true
 LOCAL_SDK_VERSION := current
 include $(BUILD_PREBUILT)
