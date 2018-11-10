@@ -27,7 +27,8 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 	prebuilt-okhttp
 
 LOCAL_STATIC_JAVA_AAR_LIBRARIES := \
-    prebuilt-play-services-location \
+    prebuilt-play-services \
+	prebuilt-play-services-location \
 	prebuilt-play-services-task
 
 LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
@@ -47,6 +48,14 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_AAPT_FLAGS := --auto-add-overlay
 LOCAL_MANIFEST_FILE := AndroidManifest.xml
 include $(BUILD_PACKAGE)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE_CLASS := JAVA_LIBRARIES
+LOCAL_MODULE := prebuilt-play-services
+LOCAL_SRC_FILES := libs/aar/play-services-12.0.1.aar
+LOCAL_UNINSTALLABLE_MODULE := true
+LOCAL_SDK_VERSION := current
+include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
