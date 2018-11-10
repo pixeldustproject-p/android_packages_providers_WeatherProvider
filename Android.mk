@@ -32,9 +32,11 @@ LOCAL_RESOURCE_DIR += $(foreach lib, $(LOCAL_STATIC_JAVA_AAR_LIBRARIES),\
 LOCAL_USE_AAPT2 := true
 LOCAL_PROGUARD_ENABLED := disabled
 LOCAL_JAR_EXCLUDE_FILES := none
-LOCAL_SRC_FILES += $(call all-java-files-under, src)
 LOCAL_PACKAGE_NAME := WeatherProvider
-LOCAL_SDK_VERSION := current
+LOCAL_SRC_FILES += $(call all-java-files-under, src)
+LOCAL_PRIVATE_PLATFORM_APIS := true
+LOCAL_CERTIFICATE := platform
+LOCAL_PRIVILEGED_MODULE := true
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_PACKAGE)
 
