@@ -9,10 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <uses-feature
-        android:name="com.android.providers.weather.SUPPORTED"
-        android:required="true" />
-
     <permission
         android:name="com.android.providers.weather.READ_WEATHER"
         android:protectionLevel="signature|privileged" />
