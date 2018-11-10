@@ -27,8 +27,10 @@ LOCAL_STATIC_JAVA_LIBRARIES := \
 	prebuilt-okhttp
 
 LOCAL_STATIC_JAVA_AAR_LIBRARIES := \
-    prebuilt-play-services \
+    prebuilt-play-services-base \
+	prebuilt-play-services-basement \
 	prebuilt-play-services-location \
+	prebuilt-play-services-places-placereport \
 	prebuilt-play-services-task
 
 LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
@@ -51,8 +53,16 @@ include $(BUILD_PACKAGE)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
-LOCAL_MODULE := prebuilt-play-services
-LOCAL_SRC_FILES := libs/aar/play-services-12.0.1.aar
+LOCAL_MODULE := prebuilt-play-services-base
+LOCAL_SRC_FILES := libs/aar/play-services-base-16.0.1.aar
+LOCAL_UNINSTALLABLE_MODULE := true
+LOCAL_SDK_VERSION := current
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE_CLASS := JAVA_LIBRARIES
+LOCAL_MODULE := prebuilt-play-services-basement
+LOCAL_SRC_FILES := libs/aar/play-services-basement-16.1.0.aar
 LOCAL_UNINSTALLABLE_MODULE := true
 LOCAL_SDK_VERSION := current
 include $(BUILD_PREBUILT)
@@ -61,6 +71,14 @@ include $(CLEAR_VARS)
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 LOCAL_MODULE := prebuilt-play-services-location
 LOCAL_SRC_FILES := libs/aar/play-services-location-16.0.0.aar
+LOCAL_UNINSTALLABLE_MODULE := true
+LOCAL_SDK_VERSION := current
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE_CLASS := JAVA_LIBRARIES
+LOCAL_MODULE := prebuilt-play-services-places-placereport
+LOCAL_SRC_FILES := libs/aar/play-services-places-placereport-16.0.0.aar
 LOCAL_UNINSTALLABLE_MODULE := true
 LOCAL_SDK_VERSION := current
 include $(BUILD_PREBUILT)
