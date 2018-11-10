@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.SystemProperties;
 
 public class Utilities {
 
@@ -32,18 +33,6 @@ public class Utilities {
     }
 
     public static boolean isLegacyMode() {
-        return getSystemProperty("debug.weather_provider_legacy", "true");
-    }
-	
-	public static String getSystemProperty(String key, String defaultValue) {
-        String value;
-        try {
-            value = (String) Class.forName("android.os.SystemProperties")
-                    .getMethod("get", String.class).invoke(null, key);
-            return (value == null || value.isEmpty()) ? defaultValue : value;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return defaultValue;
+		return SystemProperties.getBoolean("debug.weather_provider_legacy", false);
     }
 }
