@@ -18,12 +18,17 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+LOCAL_JAVA_LIBRARIES := \
+    android-support-annotations
+
 LOCAL_STATIC_JAVA_LIBRARIES := \
     prebuilt-gson \
 	prebuilt-jsoup \
 	prebuilt-okhttp
 
-LOCAL_STATIC_JAVA_AAR_LIBRARIES := prebuilt-play-services-location
+LOCAL_STATIC_JAVA_AAR_LIBRARIES := \
+    prebuilt-play-services-location \
+	prebuilt-play-services-task
 
 LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
 LOCAL_RESOURCE_DIR += $(foreach lib, $(LOCAL_STATIC_JAVA_AAR_LIBRARIES),\
@@ -47,6 +52,14 @@ include $(CLEAR_VARS)
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 LOCAL_MODULE := prebuilt-play-services-location
 LOCAL_SRC_FILES := libs/aar/play-services-location-16.0.0.aar
+LOCAL_UNINSTALLABLE_MODULE := true
+LOCAL_SDK_VERSION := current
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE_CLASS := JAVA_LIBRARIES
+LOCAL_MODULE := prebuilt-play-services-task
+LOCAL_SRC_FILES := libs/aar/play-services-tasks-16.0.1.aar
 LOCAL_UNINSTALLABLE_MODULE := true
 LOCAL_SDK_VERSION := current
 include $(BUILD_PREBUILT)
