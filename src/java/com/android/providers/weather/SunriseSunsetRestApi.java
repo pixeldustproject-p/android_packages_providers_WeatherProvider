@@ -19,6 +19,7 @@ import android.content.Context;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.android.providers.weather.utils.Constants;
 import com.android.providers.weather.utils.Utilities;
 
 import com.google.gson.Gson;
