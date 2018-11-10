@@ -23,6 +23,8 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.android.providers.weather.utils.Utilities;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -53,9 +55,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.android.providers.weather.Constants.DEBUG;
-import static com.android.providers.weather.WeatherInfo.WEATHER_UPDATE_ERROR;
-import static com.android.providers.weather.WeatherInfo.WEATHER_UPDATE_SUCCESS;
+import static com.android.providers.weather.utils.Constants.DEBUG;
+import static com.android.providers.weather.WeatherProvider.WEATHER_UPDATE_ERROR;
+import static com.android.providers.weather.WeatherProvider.WEATHER_UPDATE_SUCCESS;
 
 public class WeatherChannelApi implements OnFailureListener, OnCanceledListener {
     private String TAG = "WeatherChannelApi";
@@ -137,7 +139,7 @@ public class WeatherChannelApi implements OnFailureListener, OnCanceledListener 
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-            if (!(Utils.isNetworkAvailable(mContext))) {
+            if (!(Utilities.isNetworkAvailable(mContext))) {
                 request = request.newBuilder()
                         .header("Cache-Control", "public, only-if-cached, max-stale=" + Constants.API_CACHE_NO_CONNECTION_MAX_TIME)
                         .build();
@@ -146,9 +148,9 @@ public class WeatherChannelApi implements OnFailureListener, OnCanceledListener 
         }
     };
 
-    WeatherInfo getResult() {
+    WeatherProvider getResult() {
         if (isRunning() || mLocationResult == null || mLocationResult.getLastLocation() == null) {
-            return new WeatherInfo(WEATHER_UPDATE_ERROR, "", 0, 0);
+            return new WeatherProvider(WEATHER_UPDATE_ERROR, "", 0, 0);
         }
         Location location = mLocationResult.getLastLocation();
         if (DEBUG) Log.d(TAG, "getResult");
@@ -182,18 +184,18 @@ public class WeatherChannelApi implements OnFailureListener, OnCanceledListener 
                     throw new Exception("tempImperial or conditionIconElementClassName is empty");
                 }
                 String parsedConditions = parseCondition(conditionIconElement.className());
-                if (Utils.isLegacyMode()) {
+                if (Utilities.isLegacyMode()) {
                     parsedConditions = parseConditionLegacy(parsedConditions);
                 }
                 int tempMetric = (int) Math.round((Integer.valueOf(tempImperial) - 32.0) * 5 / 9);
                 if (DEBUG)
                     Log.d(TAG, "tempImperial: " + tempImperial + " tempMetric: " + tempMetric + " parsedConditions: " + parsedConditions);
-                return new WeatherInfo(WEATHER_UPDATE_SUCCESS, parsedConditions, tempMetric, Integer.valueOf(tempImperial));
+                return new WeatherProvider(WEATHER_UPDATE_SUCCESS, parsedConditions, tempMetric, Integer.valueOf(tempImperial));
             }
         } catch (Exception e) {
             if (DEBUG) Log.e(TAG, "Exception", e);
         }
-        return new WeatherInfo(WEATHER_UPDATE_ERROR, "", 0, 0);
+        return new WeatherProvider(WEATHER_UPDATE_ERROR, "", 0, 0);
     }
 
     private String parseCondition(String toCompare) {

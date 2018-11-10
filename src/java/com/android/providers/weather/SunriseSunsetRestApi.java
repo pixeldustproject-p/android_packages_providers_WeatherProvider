@@ -19,6 +19,8 @@ import android.content.Context;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.android.providers.weather.utils.Utilities;
+
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -37,7 +39,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.android.providers.weather.Constants.DEBUG;
+import static com.android.providers.weather.utils.Constants.DEBUG;
 
 class SunriseSunsetRestApi {
 
@@ -71,7 +73,7 @@ class SunriseSunsetRestApi {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
-            if (!(Utils.isNetworkAvailable(mContext))) {
+            if (!(Utilities.isNetworkAvailable(mContext))) {
                 request = request.newBuilder()
                         .header("Cache-Control", "public, only-if-cached, max-stale=" + Constants.API_CACHE_NO_CONNECTION_MAX_TIME)
                         .build();

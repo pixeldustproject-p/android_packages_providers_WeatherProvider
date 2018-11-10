@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.providers.weather;
+package com.android.providers.weather.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class Utils {
+public class Utilities {
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -31,7 +31,11 @@ public class Utils {
         return networkInfo != null && networkInfo.isConnected();
     }
 
-    public static String getSystemProperty(String key, String defaultValue) {
+    public static boolean isLegacyMode() {
+        return getSystemProperty("debug.weather_provider_legacy", true);
+    }
+	
+	public static String getSystemProperty(String key, String defaultValue) {
         String value;
         try {
             value = (String) Class.forName("android.os.SystemProperties")
@@ -41,9 +45,5 @@ public class Utils {
             e.printStackTrace();
         }
         return defaultValue;
-    }
-
-    public static boolean isLegacyMode() {
-        return getSystemProperty("debug.weather_provider_legacy", true);
     }
 }

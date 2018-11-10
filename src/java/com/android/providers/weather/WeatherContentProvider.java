@@ -23,10 +23,11 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import static com.android.providers.weather.Constants.DEBUG;
+import static com.android.providers.weather.utils.Constants.DEBUG;
 
 public class WeatherContentProvider extends ContentProvider {
-    private static final String TAG = "WeatherClient:WeatherContentProvider";
+
+    private static final String TAG = "WeatherContentProvider";
     private static final String COLUMN_STATUS = "status";
     private static final String COLUMN_CONDITIONS = "conditions";
     private static final String COLUMN_TEMPERATURE_METRIC = "temperatureMetric";
@@ -61,15 +62,15 @@ public class WeatherContentProvider extends ContentProvider {
                 e.printStackTrace();
             }
         }
-        WeatherInfo weatherInfo = weatherChannelApi.getResult();
-        if (DEBUG) Log.d(TAG,weatherInfo.toString());
+        WeatherProvider provider = weatherChannelApi.getResult();
+        if (DEBUG) Log.d(TAG, provider.toString());
         final MatrixCursor result = new MatrixCursor(PROJECTION_DEFAULT_WEATHER);
-        if (weatherInfo != null) {
+        if (provider != null) {
             result.newRow()
-                    .add(COLUMN_STATUS, weatherInfo.getStatus())
-                    .add(COLUMN_CONDITIONS, weatherInfo.getConditions())
-                    .add(COLUMN_TEMPERATURE_METRIC, weatherInfo.getTemperature(true))
-                    .add(COLUMN_TEMPERATURE_IMPERIAL, weatherInfo.getTemperature(false));
+                    .add(COLUMN_STATUS, provider.getStatus())
+                    .add(COLUMN_CONDITIONS, provider.getConditions())
+                    .add(COLUMN_TEMPERATURE_METRIC, provider.getTemperature(true))
+                    .add(COLUMN_TEMPERATURE_IMPERIAL, provider.getTemperature(false));
             return result;
         }
 

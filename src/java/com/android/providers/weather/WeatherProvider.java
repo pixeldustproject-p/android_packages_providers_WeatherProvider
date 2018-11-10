@@ -15,7 +15,7 @@
  */
 package com.android.providers.weather;
 
-public class WeatherInfo {
+public class WeatherProvider {
 
     public static final int WEATHER_UPDATE_SUCCESS = 0; // Success
     public static final int WEATHER_UPDATE_RUNNING = 1; // Update running
@@ -26,7 +26,7 @@ public class WeatherInfo {
     private int temperatureMetric;
     private int temperatureImperial;
 
-    WeatherInfo(int status, String conditions, int temperatureMetric, int temperatureImperial) {
+    WeatherProvider(int status, String conditions, int temperatureMetric, int temperatureImperial) {
         this.status = status;
         this.conditions = conditions;
         this.temperatureMetric = temperatureMetric;
@@ -51,7 +51,7 @@ public class WeatherInfo {
 
     @Override
     public String toString() {
-        return "WeatherInfo: " +
+        return "WeatherProvider: " +
                 "status=" + getStatus() + "," +
                 "conditions=" + getConditions() + "," +
                 "temperatureMetric=" + getTemperature(true) + "," +
