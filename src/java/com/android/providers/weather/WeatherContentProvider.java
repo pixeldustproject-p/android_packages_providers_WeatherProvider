@@ -55,9 +55,7 @@ public class WeatherContentProvider extends ContentProvider {
             String sortOrder) {
 
         if (DEBUG) Log.i(TAG, "query: " + uri.toString());
-        if (mWeatherChannelApi == null) {
-            mWeatherChannelApi = new WeatherChannelApi(getContext());
-        }
+        mWeatherChannelApi = new WeatherChannelApi(getContext());
         mWeatherChannelApi.queryLocation();
         while (mWeatherChannelApi.isRunning()) {
             try {
